@@ -1,4 +1,4 @@
-import { ExternalLink, Lock } from "lucide-react";
+import { Check, ExternalLink, Lock } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import type { Project } from "@/types";
 
@@ -21,7 +21,31 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.contribution}
       </p>
 
-      <div className="mt-4 flex flex-wrap gap-1.5">
+      {project.metrics?.length > 0 && (
+        <dl className="border-border mt-4 flex flex-wrap gap-x-6 gap-y-2 border-y py-3">
+          {project.metrics.map((metric) => (
+            <div key={metric.label}>
+              <dd className="text-foreground font-mono text-sm font-semibold">
+                {metric.value}
+              </dd>
+              <dt className="text-muted-foreground text-[11px]">{metric.label}</dt>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      {project.highlights?.length > 0 && (
+        <ul className="mt-4 space-y-2">
+          {project.highlights.map((highlight) => (
+            <li key={highlight} className="text-muted-foreground flex gap-2 text-sm">
+              <Check size={14} className="text-accent mt-0.5 shrink-0" />
+              {highlight}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="mt-5 flex flex-wrap gap-1.5">
         {project.techStack.map((tech) => (
           <span
             key={tech}

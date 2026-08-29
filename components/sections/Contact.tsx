@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Mail, MapPin, Send } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { useReveal } from "@/lib/hooks";
 import { personalInfo } from "@/lib/data";
 
 const socialLinks = [
@@ -16,6 +17,8 @@ export function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const formReveal = useReveal();
+  const asideReveal = useReveal(0.1);
 
   // No backend for the contact form — submitting builds a pre-filled
   // mailto: link and hands off to the user's email client.
@@ -32,17 +35,14 @@ export function Contact() {
       className="border-border mx-auto max-w-6xl border-t px-6 py-20 md:py-28"
     >
       <SectionHeading
-        index="05"
+        index="06"
         title="Contact"
         subtitle="Have a role, project, or question in mind? Reach out."
       />
 
       <div className="grid gap-10 md:grid-cols-5">
         <motion.form
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4 }}
+          {...formReveal}
           onSubmit={handleSubmit}
           className="flex flex-col gap-4 md:col-span-3"
         >
@@ -100,13 +100,7 @@ export function Contact() {
           </button>
         </motion.form>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex flex-col gap-3 md:col-span-2"
-        >
+        <motion.div {...asideReveal} className="flex flex-col gap-3 md:col-span-2">
           <a
             href={`mailto:${personalInfo.email}`}
             className="border-border bg-card hover:border-accent flex items-center gap-3 rounded-lg border px-4 py-3 transition-colors"

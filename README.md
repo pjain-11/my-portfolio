@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prince Jain — Portfolio
 
-## Getting Started
+Personal portfolio site for a backend developer. Static, fast, and content-driven:
+every piece of copy lives in a single JSON file, so updating the site never means
+touching component code.
 
-First, run the development server:
+**Live:** _set your deployed URL here_
+
+## Stack
+
+| Concern    | Choice                                              |
+| ---------- | --------------------------------------------------- |
+| Framework  | Next.js 16 (App Router, `output: "export"`)         |
+| UI         | React 19, Tailwind CSS v4                           |
+| Animation  | Framer Motion (respects `prefers-reduced-motion`)   |
+| Theming    | `next-themes` — class-based dark mode, dark default |
+| Fonts      | Geist Sans + Geist Mono via `next/font`             |
+| Deployment | Any static host — builds to `out/`                  |
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script                 | Does                                            |
+| ---------------------- | ----------------------------------------------- |
+| `npm run dev`          | Start the dev server                            |
+| `npm run build`        | Production build → static export in `out/`      |
+| `npm run start`        | Serve the `out/` build locally (via `serve`)    |
+| `npm run lint`         | ESLint (`eslint-config-next` + Prettier compat) |
+| `npm run format`       | Prettier write                                  |
+| `npm run format:check` | Prettier check (use in CI)                      |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+All content is in [`content/content.json`](content/content.json) — personal info,
+stats, skills, engineering principles, projects, and experience. On import,
+[`lib/data.ts`](lib/data.ts) shape-checks the file and re-exports typed values,
+so a malformed edit fails the build with a clear message instead of rendering
+broken UI. Types live in [`types/index.ts`](types/index.ts).
 
-To learn more about Next.js, take a look at the following resources:
+To swap in your own resume, replace `public/resume.pdf`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/
+  layout.tsx        Root layout, theme provider, metadata
+  page.tsx          Single-page composition + Person JSON-LD
+  globals.css       Design tokens (light/dark), grid background, a11y focus
+  sitemap.ts        Build-time sitemap
+  robots.ts         Build-time robots.txt
+components/
+  layout/           Navbar (scroll-spy), Footer, ThemeToggle
+  sections/         Hero, About, Skills, Approach, Projects, Experience, Contact
+  ui/               Presentational pieces (ProjectCard, TerminalWindow, …)
+lib/
+  data.ts           Loads + validates content.json
+  hooks.ts          useActiveSection, useScrollProgress, usePrefersReducedMotion, …
+  metadata.ts       SEO / Open Graph / Twitter metadata
+  utils.ts          cn() class-merge helper
+content/
+  content.json      ← the only file you normally edit
+```
 
-## Deploy on Vercel
+Design decisions worth knowing:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Static export.** No API routes or server data, so the whole site is
+  pre-rendered HTML/CSS/JS and can be hosted anywhere (S3, GitHub Pages, Nginx,
+  Vercel, Netlify).
+- **The contact form has no backend.** Submitting builds a pre-filled `mailto:`
+  link and hands off to the visitor's email client.
+- **Accessibility.** Visible keyboard focus rings, `aria-current` on the active
+  nav item, reduced-motion support in both CSS and the Framer Motion helpers,
+  and `scroll-padding-top` so anchored sections clear the sticky header.
+- **SEO.** `Person` structured data (JSON-LD), Open Graph + Twitter cards,
+  canonical URL, generated sitemap and robots.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Set the production URL so canonical/OG links resolve:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.com npm run build
+```
+
+Then deploy the `out/` directory (or point Vercel/Netlify at the repo — they run
+the build for you).

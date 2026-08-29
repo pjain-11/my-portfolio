@@ -1,0 +1,177 @@
+{
+  "personalInfo": {
+    "name": "Prince Jain",
+    "displayName": "Prince J",
+    "role": "Backend Developer",
+    "experience": "2.5 years",
+    "tagline": "I build APIs and backend systems that don't fall over at 3am.",
+    "location": "Mumbai, Maharashtra",
+    "email": "prince.jain.1103@gmail.com",
+    "github": "https://github.com/pjain-11",
+    "linkedin": "https://www.linkedin.com/in/princejain11/",
+    "resumeUrl": "/resume.pdf",
+    "availability": "Open to backend roles",
+    "bio": "I'm a backend developer with 2.5 years of experience building systems for the insurance and BFSI space. My work sits at the intersection of secure API design and messy real-world data — from integrating insurance provider APIs for real-time quote generation, to building multi-tenant platforms with role-based access for admins, corporates, and POS users. I care about backend systems that stay fast and predictable under load, not just ones that work in a demo. Currently based in Mumbai, and always looking to sharpen how I think about database performance and system design.",
+    "now": "Deepening my system-design fundamentals — indexing strategy, query planning, and designing for predictable p99 latency under real traffic.",
+    "education": {
+      "degree": "B.E. in Computer Engineering",
+      "institution": "Mumbai University",
+      "duration": "2019 – 2023",
+      "detail": "CGPA: 8.76 / 10"
+    },
+    "achievements": [
+      "KAITO Star Award — outstanding backend development performance",
+      "Shipped 20+ production REST APIs powering live insurance workflows",
+      "Cut a recurring data-migration task from hours to under 30 seconds",
+      "Member of Leo Club of Dombivli"
+    ]
+  },
+  "stats": [
+    { "label": "Years building backends", "value": "2.5+" },
+    { "label": "Production REST APIs shipped", "value": "20+" },
+    { "label": "Insurer APIs integrated", "value": "5+" },
+    { "label": "Records migrated in <30s", "value": "100k+" }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "skills": ["JavaScript", "TypeScript"]
+    },
+    {
+      "category": "Backend",
+      "skills": ["Node.js", "Express.js", "NestJS", "REST API"]
+    },
+    {
+      "category": "Databases & ORM",
+      "skills": ["MySQL", "PostgreSQL", "Sequelize", "TypeORM"]
+    },
+    {
+      "category": "Frontend",
+      "skills": ["Next.js", "React"]
+    },
+    {
+      "category": "Security & Tools",
+      "skills": [
+        "JWT",
+        "RBAC",
+        "Git",
+        "Postman",
+        "Swagger",
+        "AWS (EC2/S3)",
+        "Docker",
+        "CI/CD",
+        "VAPT-aligned secure coding"
+      ]
+    }
+  ],
+  "principles": [
+    {
+      "title": "Design the contract first",
+      "body": "I settle the API shape, error semantics, and pagination model before writing handlers. A clear contract keeps the frontend unblocked and makes the implementation a detail rather than a negotiation."
+    },
+    {
+      "title": "Assume the data is messy",
+      "body": "Real insurance data arrives inconsistent, partial, and duplicated. I build ingestion and integration code that validates at the boundary, fails loudly on bad input, and never silently corrupts the store."
+    },
+    {
+      "title": "Multi-tenancy and access are not afterthoughts",
+      "body": "Tenant isolation and role-based access get modelled into the schema and the query layer from day one — Admin, Corporate, Manager, and POS users should be structurally unable to see each other's data."
+    },
+    {
+      "title": "Optimise where the traffic actually is",
+      "body": "I profile before I tune. The wins come from indexing the real hot paths, removing N+1s, and scoping queries — not from micro-optimising code that runs once a day."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Insurance Policy Management Platform",
+      "description": "Backend services powering corporate & retail insurance journeys — from quote comparison to policy issuance, admin operations, and POS onboarding.",
+      "contribution": "Built a multi-tenant architecture with tenant-specific configs, RBAC-secured APIs, and integrations with multiple insurer APIs for quote comparison and policy sync.",
+      "highlights": [
+        "Multi-tenant data model with per-tenant configuration and structural isolation between tenants",
+        "RBAC enforced at the query layer across Admin, Corporate, Manager, and POS roles",
+        "Normalised 5+ third-party insurer APIs behind a single internal quote/issuance contract",
+        "Idempotent policy-sync jobs so retries never double-issue or corrupt state"
+      ],
+      "metrics": [
+        { "label": "User roles", "value": "4" },
+        { "label": "Insurer integrations", "value": "5+" },
+        { "label": "REST endpoints", "value": "20+" }
+      ],
+      "techStack": ["Node.js", "NestJS", "PostgreSQL", "TypeORM", "JWT", "REST API"],
+      "isPrivate": true
+    },
+    {
+      "name": "Bulk Insurance Data Migration Utility",
+      "description": "A Node.js tool built to migrate large-scale legacy insurance data into a structured MySQL database.",
+      "contribution": "Designed a streaming ingestion pipeline that validates, transforms, and batch-inserts legacy records with full reporting on rejects.",
+      "highlights": [
+        "Streams large Excel workbooks instead of loading them into memory",
+        "Validates and transforms each row at the boundary, quarantining bad records with reasons",
+        "Batched, transactional inserts so a mid-run failure leaves the target in a known state"
+      ],
+      "metrics": [
+        { "label": "Records / run", "value": "100k+" },
+        { "label": "Runtime", "value": "<30s" },
+        { "label": "Manual effort saved", "value": "~90%" }
+      ],
+      "techStack": ["Node.js", "MySQL", "Sequelize"],
+      "isPrivate": true
+    },
+    {
+      "name": "POS Onboarding & Reporting Module",
+      "description": "Onboarding workflow for POS partners including KYC verification, certification tracking, and dynamic reporting.",
+      "contribution": "Built reporting APIs with filtering/pagination and dynamic PDF/Excel exports, following VAPT-aligned security practices.",
+      "highlights": [
+        "State-machine-driven onboarding covering KYC, certification, and activation stages",
+        "Reporting APIs with composable filters, server-side pagination, and stable sorting",
+        "On-demand PDF and Excel exports generated from the same query layer as the API"
+      ],
+      "metrics": [
+        { "label": "Export formats", "value": "PDF · Excel" },
+        { "label": "Security", "value": "VAPT-aligned" }
+      ],
+      "techStack": ["Express.js", "MySQL", "PostgreSQL", "REST API"],
+      "isPrivate": true
+    }
+  ],
+  "experience": [
+    {
+      "company": "KIS Tech Solutions Pvt. Ltd.",
+      "role": "Software Developer",
+      "duration": "March 2024 – Present",
+      "summary": "Backend developer on a multi-tenant insurance platform serving corporate, retail, and POS distribution channels.",
+      "bullets": [
+        "Developed and maintained 20+ production-grade REST APIs powering insurance workflows — quotes, policy issuance, payments, claims, and endorsements.",
+        "Integrated 5+ insurance provider APIs for real-time quote generation and policy synchronization, normalising inconsistent third-party contracts behind one internal API.",
+        "Implemented JWT-based authentication and RBAC across Admin, Corporate, Manager, and POS user roles, enforced down to the query layer.",
+        "Cut bulk data migration time by ~90% by building a Node.js utility processing 100,000+ Excel records into MySQL in under 30 seconds.",
+        "Optimized high-traffic endpoints through indexing, query tuning, and Sequelize scopes, improving response times on the busiest routes."
+      ],
+      "stack": [
+        "Node.js",
+        "NestJS",
+        "Express.js",
+        "PostgreSQL",
+        "MySQL",
+        "TypeORM",
+        "Sequelize",
+        "Docker"
+      ]
+    }
+  ],
+  "systemStatus": [
+    { "label": "API", "value": "Operational", "status": "ok" },
+    { "label": "Database", "value": "Operational", "status": "ok" },
+    { "label": "Uptime", "value": "99.98%", "status": "ok" },
+    { "label": "Avg. Response", "value": "84ms", "status": "ok" }
+  ],
+  "heroTerminalLines": [
+    "$ whoami",
+    "prince_jain — backend developer",
+    "$ cat skills.json | jq '.experience'",
+    "\"2.5 years\"",
+    "$ node server.js",
+    "Server listening on port 4000 ✓"
+  ]
+}

@@ -1,134 +1,62 @@
 import type {
   ExperienceEntry,
   PersonalInfo,
+  PortfolioContent,
+  Principle,
   Project,
   SkillCategory,
+  Stat,
   SystemStatusItem,
 } from "@/types";
+import contentJson from "@/content/content.json";
 
 /**
- * All personal content lives here — edit this file to update the portfolio
- * without touching any component code.
+ * All personal content lives in `content/content.json` — edit that file to
+ * update the portfolio without touching any component code.
+ *
+ * The JSON is imported here once, lightly shape-checked at module load, and
+ * re-exported as typed values so components get autocomplete and fail fast
+ * if the content file drifts out of shape.
  */
 
-export const personalInfo: PersonalInfo = {
-  name: "Prince Jain",
-  displayName: "Prince J",
-  role: "Backend Developer",
-  experience: "2.5 years",
-  tagline: "I build APIs and backend systems that don't fall over at 3am.",
-  location: "Mumbai, Maharashtra",
-  email: "prince.jain.1103@gmail.com",
-  github: "https://github.com/pjain-11",
-  linkedin: "https://www.linkedin.com/in/princejain11/",
-  resumeUrl: "/resume.pdf", // place your resume PDF in the /public folder with this name
-  bio: `I'm a backend developer with 2.5 years of experience building systems for the insurance and BFSI space. My work sits at the intersection of secure API design and messy real-world data — from integrating insurance provider APIs for real-time quote generation, to building multi-tenant platforms with role-based access for admins, corporates, and POS users. I care about backend systems that stay fast and predictable under load, not just ones that work in a demo. Currently based in Mumbai, and always looking to sharpen how I think about database performance and system design.`,
-  education: {
-    degree: "B.E. in Computer Engineering",
-    institution: "Mumbai University",
-    duration: "2019 – 2023",
-    detail: "CGPA: 8.76 / 10",
-  },
-  achievements: [
-    "KAITO Star Award — outstanding backend development performance",
-    "Experience with Docker & CI/CD pipelines",
-    "Member of Leo Club of Dombivli",
-  ],
-};
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) {
+    throw new Error(`content/content.json: ${message}`);
+  }
+}
 
-export const skills: SkillCategory[] = [
-  {
-    category: "Languages",
-    skills: ["JavaScript", "TypeScript"],
-  },
-  {
-    category: "Backend",
-    skills: ["Node.js", "Express.js", "NestJS", "REST API"],
-  },
-  {
-    category: "Databases & ORM",
-    skills: ["MySQL", "PostgreSQL", "Sequelize", "TypeORM"],
-  },
-  {
-    category: "Frontend",
-    skills: ["Next.js"],
-  },
-  {
-    category: "Security & Tools",
-    skills: [
-      "JWT",
-      "RBAC",
-      "Git",
-      "Postman",
-      "Swagger",
-      "AWS (EC2/S3)",
-      "Docker",
-      "CI/CD",
-      "VAPT-aligned secure coding",
-    ],
-  },
-];
+// Cast through `unknown`: the JSON's inferred literal types (e.g. `status:
+// string`) aren't structurally assignable to the stricter content types.
+const content = contentJson as unknown as PortfolioContent;
 
-export const projects: Project[] = [
-  {
-    name: "Insurance Policy Management Platform",
-    description:
-      "Backend services powering corporate & retail insurance journeys — from quote comparison to policy issuance, admin operations, and POS onboarding.",
-    contribution:
-      "Built a multi-tenant architecture with tenant-specific configs, RBAC-secured APIs, and integrations with multiple insurer APIs for quote comparison and policy sync.",
-    techStack: ["Node.js", "NestJS", "PostgreSQL", "TypeORM", "JWT", "REST API"],
-    isPrivate: true,
-  },
-  {
-    name: "Bulk Insurance Data Migration Utility",
-    description:
-      "A Node.js tool built to migrate large-scale legacy insurance data into a structured MySQL database.",
-    contribution:
-      "Processes 100,000+ Excel records in under 30 seconds, cutting manual migration time by ~90%.",
-    techStack: ["Node.js", "MySQL", "Sequelize"],
-    isPrivate: true,
-  },
-  {
-    name: "POS Onboarding & Reporting Module",
-    description:
-      "Onboarding workflow for POS partners including KYC verification, certification tracking, and dynamic reporting.",
-    contribution:
-      "Built reporting APIs with filtering/pagination and dynamic PDF/Excel exports, following VAPT-aligned security practices.",
-    techStack: ["Express.js", "MySQL", "PostgreSQL", "REST API"],
-    isPrivate: true,
-  },
-];
+assert(content.personalInfo?.name, "missing personalInfo.name");
+assert(content.personalInfo?.email, "missing personalInfo.email");
+assert(
+  Array.isArray(content.stats) && content.stats.length > 0,
+  "stats must be a non-empty array",
+);
+assert(
+  Array.isArray(content.skills) && content.skills.length > 0,
+  "skills must be a non-empty array",
+);
+assert(
+  Array.isArray(content.principles) && content.principles.length > 0,
+  "principles must be a non-empty array",
+);
+assert(
+  Array.isArray(content.projects) && content.projects.length > 0,
+  "projects must be a non-empty array",
+);
+assert(
+  Array.isArray(content.experience) && content.experience.length > 0,
+  "experience must be a non-empty array",
+);
 
-export const experience: ExperienceEntry[] = [
-  {
-    company: "KIS Tech Solutions Pvt. Ltd.",
-    role: "Software Developer",
-    duration: "March 2024 – Present",
-    bullets: [
-      "Developed and maintained 20+ production-grade REST APIs powering insurance workflows — quotes, policy issuance, payments, claims, and endorsements.",
-      "Integrated 5+ insurance provider APIs for real-time quote generation and policy synchronization.",
-      "Implemented JWT-based authentication and RBAC across Admin, Corporate, Manager, and POS user roles.",
-      "Cut bulk data migration time by ~90% by building a Node.js utility processing 100,000+ Excel records into MySQL in under 30 seconds.",
-      "Optimized high-traffic endpoints through indexing, query tuning, and Sequelize scopes.",
-    ],
-  },
-];
-
-/** Decorative "system status" widget content for the hero section — styled
- * like a health check panel, not literal live monitoring data. */
-export const systemStatus: SystemStatusItem[] = [
-  { label: "API", value: "Operational", status: "ok" },
-  { label: "Database", value: "Operational", status: "ok" },
-  { label: "Uptime", value: "99.98%", status: "ok" },
-  { label: "Avg. Response", value: "84ms", status: "ok" },
-];
-
-/** Terminal-style hero snippet — purely decorative. */
-export const heroTerminalLines: string[] = [
-  "$ whoami",
-  "prince_jain — backend developer",
-  "$ cat skills.json | jq '.experience'",
-  '"2.5 years"',
-  "$ node server.js",
-  "Server listening on port 4000 ✓",
-];
+export const personalInfo: PersonalInfo = content.personalInfo;
+export const stats: Stat[] = content.stats;
+export const skills: SkillCategory[] = content.skills;
+export const principles: Principle[] = content.principles;
+export const projects: Project[] = content.projects;
+export const experience: ExperienceEntry[] = content.experience;
+export const systemStatus: SystemStatusItem[] = content.systemStatus;
+export const heroTerminalLines: string[] = content.heroTerminalLines;
