@@ -20,14 +20,19 @@ export const siteMetadata: Metadata = {
     "Backend Developer",
     "Node.js",
     "Express",
+    "NestJS",
     "PostgreSQL",
     "MySQL",
+    "REST API",
     "Next.js",
     "TypeScript",
     personalInfo.name,
   ],
   authors: [{ name: personalInfo.name, url: siteUrl }],
   creator: personalInfo.name,
+  alternates: {
+    canonical: "/",
+  },
   // Static files in /public (not the app/icon or app/opengraph-image code-gen
   // conventions) — those emit extensionless routes that aren't guaranteed to
   // get the right Content-Type on a plain static host.

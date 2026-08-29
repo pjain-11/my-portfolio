@@ -4,18 +4,24 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { useActiveSection } from "@/lib/hooks";
+import { cn } from "@/lib/utils";
 import { personalInfo } from "@/lib/data";
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Skills", href: "#skills", id: "skills" },
+  { label: "Approach", href: "#approach", id: "approach" },
+  { label: "Projects", href: "#projects", id: "projects" },
+  { label: "Experience", href: "#experience", id: "experience" },
+  { label: "Contact", href: "#contact", id: "contact" },
 ];
+
+const sectionIds = navLinks.map((link) => link.id);
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const activeId = useActiveSection(sectionIds);
 
   return (
     <header className="border-border bg-background/80 sticky top-0 z-50 border-b backdrop-blur-md">
@@ -32,8 +38,18 @@ export function Navbar() {
           <ul className="text-muted-foreground flex items-center gap-6 font-mono text-sm">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="hover:text-accent transition-colors">
+                <a
+                  href={link.href}
+                  aria-current={activeId === link.id ? "true" : undefined}
+                  className={cn(
+                    "hover:text-accent relative transition-colors",
+                    activeId === link.id && "text-foreground",
+                  )}
+                >
                   {link.label}
+                  {activeId === link.id && (
+                    <span className="bg-accent absolute -bottom-1.5 left-0 h-px w-full" />
+                  )}
                 </a>
               </li>
             ))}
@@ -62,7 +78,11 @@ export function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="hover:bg-card hover:text-accent block rounded-md px-2 py-2 transition-colors"
+                aria-current={activeId === link.id ? "true" : undefined}
+                className={cn(
+                  "hover:bg-card hover:text-accent block rounded-md px-2 py-2 transition-colors",
+                  activeId === link.id && "text-accent",
+                )}
               >
                 {link.label}
               </a>

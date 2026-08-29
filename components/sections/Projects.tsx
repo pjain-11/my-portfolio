@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { useReveal } from "@/lib/hooks";
 import { projects } from "@/lib/data";
+import type { Project } from "@/types";
 
 export function Projects() {
   return (
@@ -12,24 +14,26 @@ export function Projects() {
       className="border-border mx-auto max-w-6xl border-t px-6 py-20 md:py-28"
     >
       <SectionHeading
-        index="03"
+        index="04"
         title="Projects"
-        subtitle="A sample of backend systems I've built and shipped."
+        subtitle="Backend systems I've built and shipped. Client work, so repositories stay private — the engineering detail is below."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         {projects.map((project, index) => (
-          <motion.div
-            key={project.name}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.4, delay: index * 0.08 }}
-          >
-            <ProjectCard project={project} />
-          </motion.div>
+          <RevealCard key={project.name} project={project} index={index} />
         ))}
       </div>
     </section>
+  );
+}
+
+function RevealCard({ project, index }: { project: Project; index: number }) {
+  const reveal = useReveal(index * 0.08);
+
+  return (
+    <motion.div {...reveal}>
+      <ProjectCard project={project} />
+    </motion.div>
   );
 }

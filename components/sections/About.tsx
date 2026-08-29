@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Award, Briefcase } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useReveal } from "@/lib/hooks";
 import { personalInfo } from "@/lib/data";
 
 const quickFacts = [
@@ -12,6 +13,11 @@ const quickFacts = [
 ];
 
 export function About() {
+  const bio = useReveal();
+  const facts = useReveal(0.1);
+  const edu = useReveal();
+  const achievements = useReveal(0.1);
+
   return (
     <section
       id="about"
@@ -20,23 +26,17 @@ export function About() {
       <SectionHeading index="01" title="About Me" subtitle="A little more context." />
 
       <div className="grid gap-10 md:grid-cols-3">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4 }}
-          className="text-muted-foreground leading-relaxed text-balance md:col-span-2"
-        >
-          {personalInfo.bio}
-        </motion.p>
+        <motion.div {...bio} className="md:col-span-2">
+          <p className="text-muted-foreground leading-relaxed text-balance">
+            {personalInfo.bio}
+          </p>
+          <p className="border-accent/50 text-foreground/90 mt-5 border-l-2 pl-3 text-sm">
+            <span className="text-accent font-mono">Currently — </span>
+            {personalInfo.now}
+          </p>
+        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex flex-col gap-3"
-        >
+        <motion.div {...facts} className="flex flex-col gap-3">
           {quickFacts.map((fact) => (
             <div
               key={fact.label}
@@ -55,13 +55,7 @@ export function About() {
       </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4 }}
-          className="border-border bg-card rounded-lg border p-6"
-        >
+        <motion.div {...edu} className="border-border bg-card rounded-lg border p-6">
           <div className="text-accent mb-4 flex items-center gap-2 font-mono text-sm">
             <GraduationCap size={16} />
             education
@@ -76,10 +70,7 @@ export function About() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          {...achievements}
           className="border-border bg-card rounded-lg border p-6"
         >
           <div className="text-accent mb-4 flex items-center gap-2 font-mono text-sm">
