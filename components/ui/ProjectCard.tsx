@@ -4,7 +4,7 @@ import type { Project } from "@/types";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="border-border bg-card hover:border-accent/50 flex h-full flex-col rounded-lg border p-6 transition-colors">
+    <div className="border-border bg-card hover:border-accent/50 flex h-full flex-col rounded-lg border p-5 transition-colors">
       <div className="mb-3 flex items-start justify-between gap-3">
         <h3 className="text-foreground text-lg font-semibold">{project.name}</h3>
         {project.isPrivate && (
@@ -17,12 +17,14 @@ export function ProjectCard({ project }: { project: Project }) {
 
       <p className="text-muted-foreground text-sm">{project.description}</p>
 
-      <p className="border-accent/50 text-foreground/90 mt-3 border-l-2 pl-3 text-sm">
-        {project.contribution}
-      </p>
+      {project.contribution && (
+        <p className="border-accent/50 text-foreground/90 mt-3 border-l-2 pl-3 text-sm">
+          {project.contribution}
+        </p>
+      )}
 
       {project.metrics?.length > 0 && (
-        <dl className="border-border mt-4 flex flex-wrap gap-x-6 gap-y-2 border-y py-3">
+        <dl className="border-border mt-3 flex flex-wrap gap-x-6 gap-y-2 border-t pt-3">
           {project.metrics.map((metric) => (
             <div key={metric.label}>
               <dd className="text-foreground font-mono text-sm font-semibold">
@@ -35,7 +37,7 @@ export function ProjectCard({ project }: { project: Project }) {
       )}
 
       {project.highlights?.length > 0 && (
-        <ul className="mt-4 space-y-2">
+        <ul className="mt-3 space-y-1.5">
           {project.highlights.map((highlight) => (
             <li key={highlight} className="text-muted-foreground flex gap-2 text-sm">
               <Check size={14} className="text-accent mt-0.5 shrink-0" />
@@ -45,7 +47,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </ul>
       )}
 
-      <div className="mt-5 flex flex-wrap gap-1.5">
+      <div className="mt-4 flex flex-wrap gap-1.5">
         {project.techStack.map((tech) => (
           <span
             key={tech}
@@ -56,35 +58,39 @@ export function ProjectCard({ project }: { project: Project }) {
         ))}
       </div>
 
-      <div className="border-border mt-5 flex items-center gap-4 border-t pt-4 font-mono text-sm">
-        {project.githubUrl ? (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="text-muted-foreground hover:text-accent inline-flex items-center gap-1.5 transition-colors"
-          >
-            <GithubIcon size={15} />
-            Code
-          </a>
-        ) : (
-          <span className="text-muted-foreground/50 inline-flex items-center gap-1.5">
-            <GithubIcon size={15} />
-            Proprietary
-          </span>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="text-muted-foreground hover:text-accent inline-flex items-center gap-1.5 transition-colors"
-          >
-            <ExternalLink size={15} />
-            Live
-          </a>
-        )}
-      </div>
+      {(project.githubUrl || project.liveUrl || project.isPrivate) && (
+        <div className="border-border mt-4 flex items-center gap-4 border-t pt-3 font-mono text-sm">
+          {project.githubUrl ? (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-muted-foreground hover:text-accent inline-flex items-center gap-1.5 transition-colors"
+            >
+              <GithubIcon size={15} />
+              Code
+            </a>
+          ) : (
+            project.isPrivate && (
+              <span className="text-muted-foreground/50 inline-flex items-center gap-1.5">
+                <GithubIcon size={15} />
+                Proprietary
+              </span>
+            )
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-muted-foreground hover:text-accent inline-flex items-center gap-1.5 transition-colors"
+            >
+              <ExternalLink size={15} />
+              Live
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }

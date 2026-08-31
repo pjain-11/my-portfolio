@@ -55,7 +55,7 @@ export interface ProjectMetric {
 export interface Project {
   name: string;
   description: string;
-  contribution: string;
+  contribution?: string;
   /** Bullet points of notable engineering decisions / scope. */
   highlights: string[];
   /** Small quantified badges (scale, count, latency, …). */

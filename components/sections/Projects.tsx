@@ -16,7 +16,7 @@ export function Projects() {
       <SectionHeading
         index="04"
         title="Projects"
-        subtitle="Backend systems I've built and shipped. Client work, so repositories stay private — the engineering detail is below."
+        subtitle="Backend systems I've built and shipped — most are client work, so repos stay private."
       />
 
       <div className="grid gap-6 md:grid-cols-2">
