@@ -1,92 +1,130 @@
 # Prince Jain — Portfolio
 
-Personal portfolio site for a backend developer. Static, fast, and content-driven:
-every piece of copy lives in a single JSON file, so updating the site never means
-touching component code.
+> Backend-focused Full-Stack Developer building scalable APIs, web applications, and reliable backend systems.
 
-**Live:** _set your deployed URL here_
+🌐 **[View Live Portfolio](https://my-portfolio-delta-virid-zcfeuzq5tl.vercel.app)**
 
-## Stack
+---
 
-| Concern    | Choice                                              |
-| ---------- | --------------------------------------------------- |
-| Framework  | Next.js 16 (App Router, `output: "export"`)         |
-| UI         | React 19, Tailwind CSS v4                           |
-| Animation  | Framer Motion (respects `prefers-reduced-motion`)   |
-| Theming    | `next-themes` — class-based dark mode, dark default |
-| Fonts      | Geist Sans + Geist Mono via `next/font`             |
-| Deployment | Any static host — builds to `out/`                  |
+## 👨‍💻 About
 
-## Getting started
+This is my personal developer portfolio showcasing my:
+
+* 💻 Technical skills
+* 🚀 Projects
+* 🏢 Professional experience
+* 🧠 Engineering approach
+* 📄 Resume
+* 📬 Contact information
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+
+`Next.js` `React` `TypeScript` `Tailwind CSS`
+
+**Backend**
+
+`Node.js` `Express` `REST APIs`
+
+**Database**
+
+`MySQL` `PostgreSQL`
+
+**Tools & Cloud**
+
+`Git` `GitHub` `AWS` `Sequelize`
+
+---
+
+## ✨ Highlights
+
+* ⚡ Fast and responsive design
+* 🌙 Dark / Light mode
+* 📱 Fully responsive
+* 🎨 Modern UI with smooth animations
+* ♿ Accessibility focused
+* 🔍 SEO optimized
+* 📄 Resume download
+* 📦 Static deployment
+
+---
+
+## 🚀 Projects
+
+Some of the projects featured in the portfolio:
+
+### ResumeLens
+
+AI-powered resume and job description analyzer.
+
+**Tech:** Next.js · TypeScript · Gemini API · Zod
+
+### PulseCheck
+
+API uptime and health monitoring platform.
+
+**Tech:** Next.js · Node.js · Express · MySQL · Sequelize
+
+More projects are available on the live portfolio.
+
+---
+
+## ⚙️ Getting Started
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+npm run dev
 ```
 
-## Scripts
+Open `http://localhost:3000`.
 
-| Script                 | Does                                            |
-| ---------------------- | ----------------------------------------------- |
-| `npm run dev`          | Start the dev server                            |
-| `npm run build`        | Production build → static export in `out/`      |
-| `npm run start`        | Serve the `out/` build locally (via `serve`)    |
-| `npm run lint`         | ESLint (`eslint-config-next` + Prettier compat) |
-| `npm run format`       | Prettier write                                  |
-| `npm run format:check` | Prettier check (use in CI)                      |
-
-## Editing content
-
-All content is in [`content/content.json`](content/content.json) — personal info,
-stats, skills, engineering principles, projects, and experience. On import,
-[`lib/data.ts`](lib/data.ts) shape-checks the file and re-exports typed values,
-so a malformed edit fails the build with a clear message instead of rendering
-broken UI. Types live in [`types/index.ts`](types/index.ts).
-
-To swap in your own resume, replace `public/resume.pdf`.
-
-## Architecture
-
-```
-app/
-  layout.tsx        Root layout, theme provider, metadata
-  page.tsx          Single-page composition + Person JSON-LD
-  globals.css       Design tokens (light/dark), grid background, a11y focus
-  sitemap.ts        Build-time sitemap
-  robots.ts         Build-time robots.txt
-components/
-  layout/           Navbar (scroll-spy), Footer, ThemeToggle
-  sections/         Hero, About, Skills, Approach, Projects, Experience, Contact
-  ui/               Presentational pieces (ProjectCard, TerminalWindow, …)
-lib/
-  data.ts           Loads + validates content.json
-  hooks.ts          useActiveSection, useScrollProgress, usePrefersReducedMotion, …
-  metadata.ts       SEO / Open Graph / Twitter metadata
-  utils.ts          cn() class-merge helper
-content/
-  content.json      ← the only file you normally edit
-```
-
-Design decisions worth knowing:
-
-- **Static export.** No API routes or server data, so the whole site is
-  pre-rendered HTML/CSS/JS and can be hosted anywhere (S3, GitHub Pages, Nginx,
-  Vercel, Netlify).
-- **The contact form has no backend.** Submitting builds a pre-filled `mailto:`
-  link and hands off to the visitor's email client.
-- **Accessibility.** Visible keyboard focus rings, `aria-current` on the active
-  nav item, reduced-motion support in both CSS and the Framer Motion helpers,
-  and `scroll-padding-top` so anchored sections clear the sticky header.
-- **SEO.** `Person` structured data (JSON-LD), Open Graph + Twitter cards,
-  canonical URL, generated sitemap and robots.
-
-## Deployment
-
-Set the production URL so canonical/OG links resolve:
+### Production Build
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-domain.com npm run build
+npm run build
 ```
 
-Then deploy the `out/` directory (or point Vercel/Netlify at the repo — they run
-the build for you).
+The static production build is generated in the `out/` directory.
+
+---
+
+## 📁 Content
+
+Portfolio content is managed from:
+
+```text
+content/content.json
+```
+
+This keeps personal information, skills, projects, and experience separate from the UI code.
+
+---
+
+## 📄 Resume
+
+The portfolio includes a downloadable resume:
+
+```text
+public/resume.pdf
+```
+
+---
+
+## 🌐 Live
+
+**Portfolio:** [Visit Website](https://my-portfolio-delta-virid-zcfeuzq5tl.vercel.app)
+
+---
+
+## 📬 Contact
+
+Interested in working together?
+
+Visit my portfolio to find my contact details and social profiles.
+
+---
+
+### Built with ❤️ using Next.js
